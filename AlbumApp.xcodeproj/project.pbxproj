@@ -9,19 +9,27 @@
 /* Begin PBXBuildFile section */
 		362AB9701F81F58A007629FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AB96F1F81F58A007629FF /* AppDelegate.swift */; };
 		362AB9721F81F58A007629FF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AB9711F81F58A007629FF /* ViewController.swift */; };
-		362AB9751F81F58A007629FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 362AB9731F81F58A007629FF /* Main.storyboard */; };
 		362AB9771F81F58A007629FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 362AB9761F81F58A007629FF /* Assets.xcassets */; };
 		362AB97A1F81F58A007629FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 362AB9781F81F58A007629FF /* LaunchScreen.storyboard */; };
+		362AB9821F81F5D9007629FF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362AB9811F81F5D9007629FF /* Extensions.swift */; };
+		CF6B3E99222D01670035AD8D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E98222D01670035AD8D /* Model.swift */; };
+		CF6B3E9B222E352A0035AD8D /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E9A222E352A0035AD8D /* MyViewController.swift */; };
+		CF6B3E9D222E3D7B0035AD8D /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */; };
+		CFDEBB21222F7CB000EEBE31 /* PopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDEBB20222F7CB000EEBE31 /* PopCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		362AB96C1F81F589007629FF /* AlbumApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlbumApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		362AB96F1F81F58A007629FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		362AB9711F81F58A007629FF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		362AB9741F81F58A007629FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		362AB9761F81F58A007629FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		362AB9791F81F58A007629FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		362AB97B1F81F58A007629FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		362AB9811F81F5D9007629FF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		CF6B3E98222D01670035AD8D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		CF6B3E9A222E352A0035AD8D /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
+		CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		CFDEBB20222F7CB000EEBE31 /* PopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +62,16 @@
 		362AB96E1F81F58A007629FF /* AlbumApp */ = {
 			isa = PBXGroup;
 			children = (
+				362AB9811F81F5D9007629FF /* Extensions.swift */,
 				362AB96F1F81F58A007629FF /* AppDelegate.swift */,
 				362AB9711F81F58A007629FF /* ViewController.swift */,
-				362AB9731F81F58A007629FF /* Main.storyboard */,
+				CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */,
+				CFDEBB20222F7CB000EEBE31 /* PopCell.swift */,
+				CF6B3E98222D01670035AD8D /* Model.swift */,
 				362AB9761F81F58A007629FF /* Assets.xcassets */,
 				362AB9781F81F58A007629FF /* LaunchScreen.storyboard */,
 				362AB97B1F81F58A007629FF /* Info.plist */,
+				CF6B3E9A222E352A0035AD8D /* MyViewController.swift */,
 			);
 			path = AlbumApp;
 			sourceTree = "<group>";
@@ -91,11 +103,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Pavel Bogart";
 				TargetAttributes = {
 					362AB96B1F81F589007629FF = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 1010;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -125,7 +138,6 @@
 			files = (
 				362AB97A1F81F58A007629FF /* LaunchScreen.storyboard in Resources */,
 				362AB9771F81F58A007629FF /* Assets.xcassets in Resources */,
-				362AB9751F81F58A007629FF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,21 +149,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				362AB9721F81F58A007629FF /* ViewController.swift in Sources */,
+				362AB9821F81F5D9007629FF /* Extensions.swift in Sources */,
+				CFDEBB21222F7CB000EEBE31 /* PopCell.swift in Sources */,
 				362AB9701F81F58A007629FF /* AppDelegate.swift in Sources */,
+				CF6B3E9B222E352A0035AD8D /* MyViewController.swift in Sources */,
+				CF6B3E9D222E3D7B0035AD8D /* TripCell.swift in Sources */,
+				CF6B3E99222D01670035AD8D /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		362AB9731F81F58A007629FF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				362AB9741F81F58A007629FF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		362AB9781F81F58A007629FF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -177,6 +186,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -184,6 +194,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -234,6 +245,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -241,6 +253,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -275,12 +288,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7CAT7V5Y6M;
+				DEVELOPMENT_TEAM = M2LHE433S9;
 				INFOPLIST_FILE = AlbumApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Paul.AlbumApp;
+				PRODUCT_BUNDLE_IDENTIFIER = KKdayTryoutApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -290,12 +303,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7CAT7V5Y6M;
+				DEVELOPMENT_TEAM = M2LHE433S9;
 				INFOPLIST_FILE = AlbumApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Paul.AlbumApp;
+				PRODUCT_BUNDLE_IDENTIFIER = KKdayTryoutApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

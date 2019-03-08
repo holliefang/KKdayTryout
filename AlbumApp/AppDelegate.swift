@@ -12,10 +12,37 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var tabBar = UITabBar.appearance()
+    var navigation = UINavigationBar.appearance()
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        tabBar.tintColor = .black
+        tabBar.barTintColor = .white
+        
+        
+        
+        let tabBarController = UITabBarController()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        let mainVC = ViewController()
+        mainVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
+        let twoVC = UIViewController()
+        twoVC.view.backgroundColor = .red
+        twoVC.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+        let three = MyViewController()
+        three.tabBarItem = UITabBarItem(tabBarSystemItem: .downloads, tag: 2)
+        
+        let controllers = [mainVC, twoVC, three]
+        tabBarController.viewControllers = controllers.map {
+            UINavigationController(rootViewController: $0)
+        }
+        
+        window?.rootViewController = tabBarController
+        
         return true
     }
 
