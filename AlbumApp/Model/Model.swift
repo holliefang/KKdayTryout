@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+let lightBlue = UIColor(red: 126/255, green: 190/255, blue: 232/255, alpha: 1)
+var customText = ""
+
 
 struct Travel {
     var tripName: String
@@ -16,12 +19,7 @@ struct Travel {
     var cost: Int
     var image: UIImage? = nil
     var isFavorited: Bool = false
-    
-//    mutating func isFavorited(liked: Bool) {
-//        let bool = liked
-//        self.isFavorited = bool
-//    }
-    
+
 }
 
 struct Location {

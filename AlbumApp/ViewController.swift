@@ -14,15 +14,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     let popDestId = "popDestId"
     let headerId = "headerId"
 
-//    let collectionView: UICollectionView = {
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .vertical
-//        layout.minimumLineSpacing = 16
-//
-//        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-//        cv.backgroundColor = .purple
-//        return cv
-//    }()
     
     let collectionView = BaseCollectionView(scrollDirection: .vertical)
 
@@ -33,10 +24,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return iv
     }()
     
-//    lazy var width = view.frame.width
-
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     @objc func tap() {
-        
+        print("Bite me")
     }
     
     func setupViews() {
@@ -124,8 +111,6 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
-    
-    
     
 }
 

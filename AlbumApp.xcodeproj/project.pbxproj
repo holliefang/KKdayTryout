@@ -15,6 +15,8 @@
 		CF6B3E99222D01670035AD8D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E98222D01670035AD8D /* Model.swift */; };
 		CF6B3E9B222E352A0035AD8D /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E9A222E352A0035AD8D /* MyViewController.swift */; };
 		CF6B3E9D222E3D7B0035AD8D /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */; };
+		CF9A79B3223256EC004A9ECB /* Proptocols&&Btn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9A79B2223256EC004A9ECB /* Proptocols&&Btn.swift */; };
+		CF9A79BA223391B8004A9ECB /* TripTopViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9A79B9223391B8004A9ECB /* TripTopViewCell.swift */; };
 		CFDEBB21222F7CB000EEBE31 /* PopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDEBB20222F7CB000EEBE31 /* PopCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +31,8 @@
 		CF6B3E98222D01670035AD8D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		CF6B3E9A222E352A0035AD8D /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 		CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		CF9A79B2223256EC004A9ECB /* Proptocols&&Btn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Proptocols&&Btn.swift"; sourceTree = "<group>"; };
+		CF9A79B9223391B8004A9ECB /* TripTopViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripTopViewCell.swift; sourceTree = "<group>"; };
 		CFDEBB20222F7CB000EEBE31 /* PopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,18 +66,60 @@
 		362AB96E1F81F58A007629FF /* AlbumApp */ = {
 			isa = PBXGroup;
 			children = (
-				362AB9811F81F5D9007629FF /* Extensions.swift */,
-				362AB96F1F81F58A007629FF /* AppDelegate.swift */,
-				362AB9711F81F58A007629FF /* ViewController.swift */,
-				CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */,
-				CFDEBB20222F7CB000EEBE31 /* PopCell.swift */,
-				CF6B3E98222D01670035AD8D /* Model.swift */,
+				CF9A79B5223376D8004A9ECB /* Extensions */,
+				CF9A79B822337724004A9ECB /* Supporting Files */,
+				CF9A79B6223376E4004A9ECB /* Controller */,
+				CF9A79B4223376C9004A9ECB /* View */,
+				CF9A79B7223376F9004A9ECB /* Model */,
 				362AB9761F81F58A007629FF /* Assets.xcassets */,
-				362AB9781F81F58A007629FF /* LaunchScreen.storyboard */,
 				362AB97B1F81F58A007629FF /* Info.plist */,
-				CF6B3E9A222E352A0035AD8D /* MyViewController.swift */,
 			);
 			path = AlbumApp;
+			sourceTree = "<group>";
+		};
+		CF9A79B4223376C9004A9ECB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CF6B3E9C222E3D7A0035AD8D /* TripCell.swift */,
+				CF9A79B9223391B8004A9ECB /* TripTopViewCell.swift */,
+				CFDEBB20222F7CB000EEBE31 /* PopCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF9A79B5223376D8004A9ECB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				362AB9811F81F5D9007629FF /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CF9A79B6223376E4004A9ECB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				362AB9711F81F58A007629FF /* ViewController.swift */,
+				CF6B3E9A222E352A0035AD8D /* MyViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CF9A79B7223376F9004A9ECB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF6B3E98222D01670035AD8D /* Model.swift */,
+				CF9A79B2223256EC004A9ECB /* Proptocols&&Btn.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF9A79B822337724004A9ECB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				362AB96F1F81F58A007629FF /* AppDelegate.swift */,
+				362AB9781F81F58A007629FF /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,10 +195,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				362AB9721F81F58A007629FF /* ViewController.swift in Sources */,
+				CF9A79BA223391B8004A9ECB /* TripTopViewCell.swift in Sources */,
 				362AB9821F81F5D9007629FF /* Extensions.swift in Sources */,
 				CFDEBB21222F7CB000EEBE31 /* PopCell.swift in Sources */,
 				362AB9701F81F58A007629FF /* AppDelegate.swift in Sources */,
 				CF6B3E9B222E352A0035AD8D /* MyViewController.swift in Sources */,
+				CF9A79B3223256EC004A9ECB /* Proptocols&&Btn.swift in Sources */,
 				CF6B3E9D222E3D7B0035AD8D /* TripCell.swift in Sources */,
 				CF6B3E99222D01670035AD8D /* Model.swift in Sources */,
 			);
