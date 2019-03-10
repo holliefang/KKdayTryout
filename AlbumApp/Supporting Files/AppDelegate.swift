@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        let mainVC = ViewController()
+        let mainVC = MainViewController()
         mainVC.tabBarItem = UITabBarItem(tabBarSystemItem: .featured, tag: 0)
         let twoVC = UIViewController()
         twoVC.view.backgroundColor = .red

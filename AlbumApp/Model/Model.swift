@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 let lightBlue = UIColor(red: 126/255, green: 190/255, blue: 232/255, alpha: 1)
+let grayishColor = UIColor(red: 108/255, green: 108/255, blue: 108/255, alpha: 0.3).cgColor
+
 var customText = ""
 
 
@@ -42,5 +44,5 @@ let mtFujiTrip = Travel(tripName: "Petronas Tower sightseeing", location: Locati
 
 let sydneyTrip = Travel(tripName: "Sydney Trip", location: Location(country: "Australia", city: "Sydney", image: #imageLiteral(resourceName: "image4")), cost: 10839, image: #imageLiteral(resourceName: "image4"), isFavorited: false)
 
-let thailandTrip = Travel(tripName: "Thailand Trip", location: Location(country: "Thailand", city: "Bangkog", image: #imageLiteral(resourceName: "album8")), cost: 1849, image: #imageLiteral(resourceName: "image4"), isFavorited: false)
+let thailandTrip = Travel(tripName: "Thailand Trip", location: Location(country: "Thailand", city: "Bangkog", image: #imageLiteral(resourceName: "album8")), cost: 1849, image: #imageLiteral(resourceName: "album4"), isFavorited: false)
 

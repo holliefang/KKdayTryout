@@ -132,32 +132,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AlbumApp/View/TripCell.swift"
-            timestampString = "573805753.772222"
+            filePath = "AlbumApp/View/PopCell.swift"
+            timestampString = "573883877.72799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
-            landmarkName = "favoriteThis(index:)"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "update(trip:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "AlbumApp/View/PopCell.swift"
-            timestampString = "573805753.772839"
+            filePath = "AlbumApp/View/TripTopViewCell.swift"
+            timestampString = "573883877.728091"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "update(trip:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "favoriteThis()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

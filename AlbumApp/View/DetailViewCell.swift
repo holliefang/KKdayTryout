@@ -1,5 +1,5 @@
 //
-//  TripTopViewCell.swift
+//  DetailViewCell.swift
 //  AlbumApp
 //
 //  Created by Sihan Fang on 2019/3/9.
@@ -8,9 +8,11 @@
 
 import UIKit
 
-class TripTopViewCell: UICollectionViewCell {
-    static let reuseID = "TripTopViewCell"
+class DetailViewCell: UICollectionViewCell {
+    static let reuseIdentifier = "Cell"
+    
     var delegate: TripDelegate?
+    
     
     fileprivate func addTarget() {
         favoriteButton.addTarget(self, action: #selector(favoriteThis), for: .touchUpInside)
@@ -18,8 +20,9 @@ class TripTopViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addTarget()
+        //        addTarget()
         setup()
+        
     }
     
     
@@ -31,8 +34,8 @@ class TripTopViewCell: UICollectionViewCell {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.frame = .zero
-        view.layer.borderColor = grayishColor
-        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderWidth = 0.5
         return view
     }()
     
@@ -46,6 +49,23 @@ class TripTopViewCell: UICollectionViewCell {
         let lbl = UILabel()
         return lbl
     }()
+    
+    let productNoLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "Product No. :19834"
+        return lbl
+    }()
+    
+    let descriptionLabel: UITextView = {
+        let tv = UITextView()
+        tv.isEditable = false
+        tv.text = "Take an in-depth tour of the Sydney Opera House with a friendly English or Chinese guide. Learn its history and enjoy behind-the-scenes glimpses of the performance halls."
+        
+        let reviewNum = NSMutableAttributedString(string: "(23)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+
+        return tv
+    }()
+
     
     let costLabel: UILabel = {
         let lbl = UILabel()
@@ -84,15 +104,15 @@ class TripTopViewCell: UICollectionViewCell {
         btn.layer.masksToBounds = true
         btn.backgroundColor = .white
         btn.setImage(UIImage(named: "icons8-filled_like"), for: .normal)
-
+        
         return btn
     }()
     
     @objc func favoriteThis() {
         changeHeart(bool: isFavorited)
         if let indexPath = indexPath {
-                    delegate?.favoriteThis(index: indexPath)
-                }
+            delegate?.favoriteThis(index: indexPath)
+        }
     }
     
     func changeHeart(bool: Bool) {
@@ -131,13 +151,14 @@ class TripTopViewCell: UICollectionViewCell {
             
         } else {
             favoriteButton.setImage(UIImage(named:"icons8-filled_like"), for: .normal)
-
+            
         }
-
+        
     }
     
     
     func setup() {
+        addTarget()
         self.contentView.addSubview(bgView)
         bgView.addSubview(imageView)
         bgView.setAnchor(top: topAnchor,
@@ -155,6 +176,8 @@ class TripTopViewCell: UICollectionViewCell {
                             paddingBottom: 0,
                             paddingRight: 0,
                             height: 200
+            
+            
         )
         
         

@@ -30,8 +30,8 @@ extension PopCell: TripDelegate {
 
 class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout {
     
-
-    let cv = BaseCollectionView(scrollDirection: .horizontal)
+    fileprivate let padding: CGFloat = 8
+    fileprivate let cv = BaseCollectionView(scrollDirection: .horizontal)
 
     
     override init(frame: CGRect) {
@@ -45,7 +45,7 @@ class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewD
         cv.register(PopTopViewCell.self, forCellWithReuseIdentifier: PopTopViewCell.cellId)
         cv.delegate = self
         cv.dataSource = self
-        cv.backgroundColor = .gray
+        cv.backgroundColor = .white
         let frame = self.frame
         cv.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
         cv.isPagingEnabled = true
@@ -71,11 +71,11 @@ class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (frame.width / 2) - 16 , height: 300)
+        return CGSize(width: (frame.width / 2) - (padding * 2) , height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
     }
     
 
@@ -92,6 +92,16 @@ class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewD
         required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
+        
+        var bgView: UIView = {
+            let bgView = UIView()
+            bgView.backgroundColor = .white
+            bgView.layer.borderColor = grayishColor
+            bgView.layer.borderWidth = 1
+            bgView.layer.cornerRadius = 10
+//            bgView.layer.masksToBounds = true
+            return bgView
+        }()
         
         var imageView: UIImageView = {
             let iv = UIImageView()
@@ -110,8 +120,11 @@ class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewD
         }()
         
         func setup() {
+            addSubview(bgView)
             addSubview(imageView)
             addSubview(titleLabel)
+            
+            bgView.setAnchor(top: contentView.topAnchor, left: contentView.leftAnchor, leading: nil, bottom: imageView.bottomAnchor, right: contentView.rightAnchor, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
             
             imageView.setAnchor(top: topAnchor,
                                 left: leftAnchor,
@@ -119,10 +132,10 @@ class PopCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewD
                                 bottom: nil,
                                 right: rightAnchor,
                                 trailing: nil,
-                                paddingTop: 0,
-                                paddingLeft: 0,
-                                paddingBottom: 0,
-                                paddingRight: 0,
+                                paddingTop: 1,
+                                paddingLeft: 1,
+                                paddingBottom: 1,
+                                paddingRight: 1,
                                 height: 250)
             
             titleLabel.setAnchor(top: imageView.bottomAnchor,

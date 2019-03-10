@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
+class MainViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let tripId = "tripId"
-    let popDestId = "popDestId"
-    let headerId = "headerId"
+    fileprivate let tripId = "tripId"
+    fileprivate let popDestId = "popDestId"
+    fileprivate let headerId = "headerId"
+    fileprivate let padding: CGFloat = 8
 
     
     let collectionView = BaseCollectionView(scrollDirection: .vertical)
@@ -27,6 +29,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         cellRegister()
         setupViews()
         
@@ -39,6 +42,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func setupViews() {
         view.addSubview(backgrounImageView)
         view.addSubview(collectionView)
+        
+        collectionView.backgroundColor = .clear
         
         collectionView.setAnchor(top: view.topAnchor, left: view.leftAnchor, leading: nil, bottom: view.bottomAnchor, right: view.rightAnchor, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
         
@@ -95,6 +100,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             return cell as! PopCell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tripId, for: indexPath) as! TripCell
+            cell.delegate = self
             return cell
         }
 
@@ -102,30 +108,23 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
-        return CGSize(width: view.frame.width, height: 300)
+        return CGSize(width: view.frame.width - ( 2 * padding), height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if section == 1 {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        }
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+//        if section == 1 {
+//        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+//        }
+        return UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
     }
     
 }
 
-class MyUICollectionReusableView: UICollectionReusableView {
-    var label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        addSubview(label)
+extension MainViewController: MoveDelegate {
+    func move(indexpath: IndexPath) {
         
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        let detailviewcontroller = DetailViewController.init(collectionViewLayout: UICollectionViewFlowLayout())
+        self.navigationController?.pushViewController(detailviewcontroller, animated: true)
     }
 }
 

@@ -13,7 +13,6 @@ extension TripCell: TripDelegate {
     func favoriteThis(index: IndexPath) {
         trips[index.row].isFavorited = !trips[index.row].isFavorited
         collectionView.reloadItems(at: [index])
-        print("XXXXX")
     }
     
     func update(trip: Travel) {
@@ -21,31 +20,29 @@ extension TripCell: TripDelegate {
     
 }
 
-extension TripCell: ButtonDelegate {
-    func buttonClicked(bool: Bool) {
-        print("clicked")
-    }
-    
-    
+protocol MoveDelegate {
+    func move(indexpath: IndexPath)
 }
 
 class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    fileprivate let padding: CGFloat = 8
+    var delegate: MoveDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        backgroundColor = .clear
         setup()
-        
-    
     }
-    
+
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 16
+
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .white
+        cv.showsHorizontalScrollIndicator = false
         
         return cv
     }()
@@ -80,9 +77,9 @@ class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionView
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripTopViewCell.reuseID, for: indexPath) as! TripTopViewCell
         let trip = trips[indexPath.row]
         cell.delegate = self
+        cell.indexPath = indexPath
+        cell.isFavorited = trip.isFavorited
         cell.updateCellBy(trip: trip)
-        cell.favoriteButton.addTarget(self, action: #selector(tap), for: .touchUpInside)
-        
         return cell
         
     }
@@ -90,26 +87,24 @@ class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: frame.width - 16, height: 300)
+        return CGSize(width: frame.width - (padding * 2 ), height: 300)
         
     
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets(top: 0, left: padding, bottom: 0, right: padding)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("select")
+
+        delegate?.move(indexpath: indexPath)
+        print("Now at: \(indexPath)")
     }
     
     func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
         return false
     }
     
-    @objc func tap() {
-        print("HAHAHAHA")
-    }
-
 }
 

@@ -61,6 +61,22 @@ extension UIView {
         }
     }
     
+    func fillSuperview(padding: UIEdgeInsets = .zero){
+        translatesAutoresizingMaskIntoConstraints = false
+        if let superviewTopAnchor = superview?.topAnchor {
+            topAnchor.constraint(equalTo: superviewTopAnchor, constant: padding.top).isActive = true
+        }
+        if let superviewBottomAnchor = superview?.bottomAnchor {
+            bottomAnchor.constraint(equalTo: superviewBottomAnchor, constant: padding.bottom).isActive = true
+        }
+        if let superviewLeftAnchor = superview?.leftAnchor {
+            leftAnchor.constraint(equalTo: superviewLeftAnchor, constant: padding.left).isActive = true
+        }
+        if let superviewRightAnchor = superview?.rightAnchor {
+            rightAnchor.constraint(equalTo: superviewRightAnchor, constant: padding.right).isActive = true
+        }
+    }
+    
     var safeTopAnchor: NSLayoutYAxisAnchor {
         if #available(iOS 11.0, *) {
             return safeAreaLayoutGuide.topAnchor
