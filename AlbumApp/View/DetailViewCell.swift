@@ -10,38 +10,58 @@ import UIKit
 
 class DetailViewCell: UICollectionViewCell {
     static let reuseIdentifier = "Cell"
-    
-    var delegate: TripDelegate?
-    
-    
-    fileprivate func addTarget() {
-        favoriteButton.addTarget(self, action: #selector(favoriteThis), for: .touchUpInside)
-    }
+    fileprivate let stackviewPadding: CGFloat = 8
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //        addTarget()
         setup()
-        
     }
     
-    
-    lazy var width = frame.width
+    var trip: Travel? {
+        didSet{
+            guard let trip = trip else {return}
+            titleLabel.text = trip.tripName
+            let locationAttributedText = NSMutableAttributedString(string: "📍" + trip.location.country + ", " + trip.location.city,
+                                                                   attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                                                NSAttributedString.Key.foregroundColor: UIColor.gray])
+            locationLabel.attributedText = locationAttributedText
+            
+            //cost AT
+            let costAttributedText = NSMutableAttributedString(string: "TWD ",
+                                                               attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
+                                                                            NSAttributedString.Key.foregroundColor: UIColor.gray,
+                                                                            NSAttributedString.Key.baselineOffset: 3])
+            
+            
+            
+            let anotherCostAttributedText = NSMutableAttributedString(string: "\(trip.cost)",
+                attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20),
+                             NSAttributedString.Key.foregroundColor: UIColor.lightBlue,])
+            costAttributedText.append(anotherCostAttributedText)
+            costLabel.attributedText = costAttributedText
+            
+            let productAttributedText = NSMutableAttributedString(string: "🏷 Product No. \(trip.detail.productNo)",
+                                                                  attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                                                                               NSAttributedString.Key.foregroundColor: UIColor.gray])
+            productNoLabel.attributedText = productAttributedText
+            
+            let attributedText = NSMutableAttributedString(string: trip.detail.detailInfo, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+            
+            descriptionLabel.attributedText = attributedText
+        }
+    }
     
     let bgView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-        view.layer.cornerRadius = 10
-        view.layer.masksToBounds = true
         view.frame = .zero
-        view.layer.borderColor = UIColor.black.cgColor
-        view.layer.borderWidth = 0.5
         return view
     }()
     
     let titleLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .black
+        lbl.numberOfLines = 0
         return lbl
     }()
     
@@ -52,16 +72,32 @@ class DetailViewCell: UICollectionViewCell {
     
     let productNoLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Product No. :19834"
+//        lbl.text = "🏷Product No. :19834"
+        
+        
+        let productAttributedText = NSMutableAttributedString(string: "🏷 Product No. :19834",
+                                                               attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                                                                            NSAttributedString.Key.foregroundColor: UIColor.gray])
+        lbl.attributedText = productAttributedText
+        
         return lbl
     }()
     
     let descriptionLabel: UITextView = {
         let tv = UITextView()
         tv.isEditable = false
-        tv.text = "Take an in-depth tour of the Sydney Opera House with a friendly English or Chinese guide. Learn its history and enjoy behind-the-scenes glimpses of the performance halls."
+        let text = """
+Take an in-depth tour of the Sydney Opera House with a friendly English or Chinese guide.
+Learn its history and enjoy behind-the-scenes glimpses of the performance halls.
+Take an in-depth tour of the Sydney Opera House with a friendly English or Chinese guide.
+Learn its history and enjoy behind-the-scenes glimpses of the performance halls.
+Take an in-depth tour of the Sydney Opera House with a friendly English or Chinese guide.
+Learn its history and enjoy behind-the-scenes glimpses of the performance halls.
+"""
         
-        let reviewNum = NSMutableAttributedString(string: "(23)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        let attributedText = NSMutableAttributedString(string: text, attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        
+        tv.attributedText = attributedText
 
         return tv
     }()
@@ -70,15 +106,16 @@ class DetailViewCell: UICollectionViewCell {
     let costLabel: UILabel = {
         let lbl = UILabel()
         lbl.sizeToFit()
-        lbl.textAlignment = .right
+        lbl.textAlignment = .left
         return lbl
     }()
     
     let reviewLabel: UILabel = {
         let lbl = UILabel()
         lbl.sizeToFit()
-        let reviewNum = NSMutableAttributedString(string: "(23)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        let reviewStar = NSMutableAttributedString(string: "★★★★★", attributes: [NSAttributedString.Key.foregroundColor: lightBlue])
+        lbl.textAlignment = .right
+        let reviewNum = NSMutableAttributedString(string: "(87)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        let reviewStar = NSMutableAttributedString(string: "★ ★ ★ ★ ★ ", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue])
         
         reviewStar.append(reviewNum)
         lbl.attributedText = reviewStar
@@ -92,6 +129,12 @@ class DetailViewCell: UICollectionViewCell {
         iv.clipsToBounds = true
         
         return iv
+    }()
+    
+    let lineView: UIView = {
+       let line = UIView()
+        line.backgroundColor = .gray
+        return line
     }()
     
     //FIXME:--- BUTTON TO BE FIXED ---
@@ -110,9 +153,6 @@ class DetailViewCell: UICollectionViewCell {
     
     @objc func favoriteThis() {
         changeHeart(bool: isFavorited)
-        if let indexPath = indexPath {
-            delegate?.favoriteThis(index: indexPath)
-        }
     }
     
     func changeHeart(bool: Bool) {
@@ -126,21 +166,21 @@ class DetailViewCell: UICollectionViewCell {
         
         //location AT
         let locationAttributedText = NSMutableAttributedString(string: "📍" + trip.location.country + ", " + trip.location.city,
-                                                               attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                                                               attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
                                                                             NSAttributedString.Key.foregroundColor: UIColor.gray])
         self.locationLabel.attributedText = locationAttributedText
         
         //cost AT
         let costAttributedText = NSMutableAttributedString(string: "TWD ",
-                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
+                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14),
                                                                         NSAttributedString.Key.foregroundColor: UIColor.gray,
                                                                         NSAttributedString.Key.baselineOffset: 3])
         
         
         
         let anotherCostAttributedText = NSMutableAttributedString(string: "\(trip.cost)",
-            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
-                         NSAttributedString.Key.foregroundColor: lightBlue,])
+            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20),
+                         NSAttributedString.Key.foregroundColor: UIColor.lightBlue,])
         costAttributedText.append(anotherCostAttributedText)
         self.costLabel.attributedText = costAttributedText
         
@@ -158,71 +198,49 @@ class DetailViewCell: UICollectionViewCell {
     
     
     func setup() {
-        addTarget()
+//        addTarget()
         self.contentView.addSubview(bgView)
-        bgView.addSubview(imageView)
         bgView.setAnchor(top: topAnchor,
                          left: leftAnchor, leading: nil,
                          bottom: bottomAnchor,
                          right: rightAnchor, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
-        imageView.setAnchor(top: bgView.topAnchor,
-                            left: bgView.leftAnchor,
-                            leading: nil,
-                            bottom: nil,
-                            right: bgView.rightAnchor,
-                            trailing: nil,
-                            paddingTop: 0,
-                            paddingLeft: 0,
-                            paddingBottom: 0,
-                            paddingRight: 0,
-                            height: 200
-            
-            
-        )
+
         
         
-        let tripNameStackView = UIStackView(arrangedSubviews: [titleLabel, locationLabel])
+        
+        let tripNameStackView = UIStackView(arrangedSubviews: [titleLabel, locationLabel, productNoLabel])
         bgView.addSubview(tripNameStackView)
         tripNameStackView.axis = .vertical
-        tripNameStackView.distribution = .fillEqually
+        tripNameStackView.distribution = .fillProportionally
         
-        tripNameStackView.spacing = 20
-        tripNameStackView.setAnchor(top: imageView.bottomAnchor,
+        tripNameStackView.spacing = 10
+        tripNameStackView.setAnchor(top: bgView.topAnchor,
                                     left: bgView.leftAnchor,
                                     leading: nil,
                                     bottom: nil,
                                     right: bgView.rightAnchor,
-                                    trailing: nil ,
-                                    paddingTop: 8,
-                                    paddingLeft: 8,
-                                    paddingBottom:0,// 8,
-            paddingRight: 8,
-            height: 60
+                                    trailing: nil,
+                                    paddingTop: stackviewPadding,
+                                    paddingLeft: stackviewPadding,
+                                    paddingBottom:0,
+                                    paddingRight: stackviewPadding,
+                                    height: 100
         )
         
         
-        let reviewCostStackview = UIStackView(arrangedSubviews: [reviewLabel, costLabel])
-        bgView.addSubview(reviewCostStackview)
-        reviewCostStackview.axis = .horizontal
-        reviewCostStackview.alignment =  .trailing
-        reviewCostStackview.distribution = .fillEqually
+        let costReviewStackview = UIStackView(arrangedSubviews: [costLabel, reviewLabel])
+        bgView.addSubview(costReviewStackview)
+        costReviewStackview.axis = .horizontal
+        costReviewStackview.alignment =  .trailing
+        costReviewStackview.distribution = .fillEqually
+        costReviewStackview.setAnchor(top: tripNameStackView.bottomAnchor, left: bgView.leftAnchor, leading: nil, bottom: nil, right: bgView.rightAnchor, trailing: nil, paddingTop: 20, paddingLeft: stackviewPadding, paddingBottom: stackviewPadding, paddingRight: stackviewPadding)
         
-        reviewCostStackview.setAnchor(top: tripNameStackView.bottomAnchor, left: bgView.leftAnchor, leading: nil, bottom: bgView.bottomAnchor, right: bgView.rightAnchor, trailing: nil, paddingTop: 0, paddingLeft: 8, paddingBottom: 8, paddingRight: 8)
+        bgView.addSubview(lineView)
+        lineView.setAnchor(top: costReviewStackview.bottomAnchor, left: bgView.leftAnchor, leading: nil, bottom: nil, right: bgView.rightAnchor, trailing: nil, paddingTop: 20, paddingLeft: stackviewPadding, paddingBottom: 0, paddingRight: stackviewPadding, height: 0.5)
         
-        self.addSubview(favoriteButton)
+        bgView.addSubview(descriptionLabel)
+        descriptionLabel.setAnchor(top: lineView.bottomAnchor, left: bgView.leftAnchor, leading: nil, bottom: bgView.bottomAnchor, right: bgView.rightAnchor, trailing: nil, paddingTop: 20, paddingLeft: stackviewPadding, paddingBottom: stackviewPadding, paddingRight: stackviewPadding)
         
-        favoriteButton.setAnchor(top: imageView.topAnchor,
-                                 left: nil,
-                                 leading: nil,
-                                 bottom: nil,
-                                 right: imageView.rightAnchor,
-                                 trailing: nil,
-                                 paddingTop: 8,
-                                 paddingLeft: 0,
-                                 paddingBottom: 0,
-                                 paddingRight: 8,
-                                 width: 44 ,
-                                 height: 44)
         
     }
     

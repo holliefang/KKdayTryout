@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
+        
         tabBar.tintColor = .black
         tabBar.barTintColor = .white
         
@@ -70,4 +72,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 

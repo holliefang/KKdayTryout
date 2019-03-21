@@ -9,21 +9,57 @@
 import UIKit
 
 class TripTopViewCell: UICollectionViewCell {
-    static let reuseID = "TripTopViewCell"
-    var delegate: TripDelegate?
+  static let reuseID = "TripTopViewCell"
     
-    fileprivate func addTarget() {
-        favoriteButton.addTarget(self, action: #selector(favoriteThis), for: .touchUpInside)
+    var delegate: TripDelegate?
+    var indexPath: IndexPath?
+    var index: Int?
+    var trip: Travel? {
+        didSet{
+            
+            print("in trip top cell's var trips")
+            
+            guard let trip = trip else {return}
+            titleLabel.text = trip.tripName
+            imageView.image = trip.image
+            
+            let locationAttributedText = NSMutableAttributedString(string: "📍" + trip.location.country + ", " + trip.location.city,
+                                                                   attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                                                                                NSAttributedString.Key.foregroundColor: UIColor.gray])
+            locationLabel.attributedText = locationAttributedText
+            
+            let costAttributedText = NSMutableAttributedString(string: "TWD ",
+                                                               attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
+                                                                            NSAttributedString.Key.foregroundColor: UIColor.gray,
+                                                                            NSAttributedString.Key.baselineOffset: 3])
+            
+            
+            
+            let anotherCostAttributedText = NSMutableAttributedString(string: "\(trip.cost)",
+                attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
+                             NSAttributedString.Key.foregroundColor: UIColor.lightBlue])
+            costAttributedText.append(anotherCostAttributedText)
+            costLabel.attributedText = costAttributedText
+            
+            if trip.isFavorited {
+                
+                favoriteButton.setImage(UIImage(named:"icons8-filledRed_like"), for: .normal)
+                favoriteButton.tintColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
+                
+            } else {
+                favoriteButton.setImage(UIImage(named:"icons8-filled_like"), for: .normal)
+                
+            }
+
+        }
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addTarget()
         setup()
+//        createObserver()
     }
-    
-    
-    lazy var width = frame.width
     
     let bgView: UIView = {
         let view = UIView()
@@ -31,7 +67,7 @@ class TripTopViewCell: UICollectionViewCell {
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.frame = .zero
-        view.layer.borderColor = grayishColor
+        view.layer.borderColor = UIColor.grayishColor
         view.layer.borderWidth = 1
         return view
     }()
@@ -58,7 +94,7 @@ class TripTopViewCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.sizeToFit()
         let reviewNum = NSMutableAttributedString(string: "(23)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
-        let reviewStar = NSMutableAttributedString(string: "★★★★★", attributes: [NSAttributedString.Key.foregroundColor: lightBlue])
+        let reviewStar = NSMutableAttributedString(string: "★★★★★", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightBlue])
         
         reviewStar.append(reviewNum)
         lbl.attributedText = reviewStar
@@ -74,10 +110,6 @@ class TripTopViewCell: UICollectionViewCell {
         return iv
     }()
     
-    //FIXME:--- BUTTON TO BE FIXED ---
-    var isFavorited: Bool = false
-    var indexPath: IndexPath?
-    
     let favoriteButton: UIButton = {
         let btn = UIButton()
         btn.layer.cornerRadius = 22
@@ -87,56 +119,7 @@ class TripTopViewCell: UICollectionViewCell {
 
         return btn
     }()
-    
-    @objc func favoriteThis() {
-        changeHeart(bool: isFavorited)
-        if let indexPath = indexPath {
-                    delegate?.favoriteThis(index: indexPath)
-                }
-    }
-    
-    func changeHeart(bool: Bool) {
-        isFavorited = !isFavorited
-    }
-    
-    
-    func updateCellBy(trip: Travel) {
-        self.imageView.image = trip.image
-        self.titleLabel.text = trip.tripName
-        
-        //location AT
-        let locationAttributedText = NSMutableAttributedString(string: "📍" + trip.location.country + ", " + trip.location.city,
-                                                               attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                                                            NSAttributedString.Key.foregroundColor: UIColor.gray])
-        self.locationLabel.attributedText = locationAttributedText
-        
-        //cost AT
-        let costAttributedText = NSMutableAttributedString(string: "TWD ",
-                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10),
-                                                                        NSAttributedString.Key.foregroundColor: UIColor.gray,
-                                                                        NSAttributedString.Key.baselineOffset: 3])
-        
-        
-        
-        let anotherCostAttributedText = NSMutableAttributedString(string: "\(trip.cost)",
-            attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 17),
-                         NSAttributedString.Key.foregroundColor: lightBlue,])
-        costAttributedText.append(anotherCostAttributedText)
-        self.costLabel.attributedText = costAttributedText
-        
-        
-        if trip.isFavorited {
-            favoriteButton.setImage(UIImage(named:"icons8-filledRed_like"), for: .normal)
-            favoriteButton.tintColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-            
-        } else {
-            favoriteButton.setImage(UIImage(named:"icons8-filled_like"), for: .normal)
 
-        }
-
-    }
-    
-    
     func setup() {
         self.contentView.addSubview(bgView)
         bgView.addSubview(imageView)
@@ -203,7 +186,31 @@ class TripTopViewCell: UICollectionViewCell {
         
     }
     
+    fileprivate func addTarget() {
+        favoriteButton.addTarget(self, action: #selector(likeThis), for: .touchUpInside)
+    }
+    
+    @objc func likeThis() {
+        if let indexPath = indexPath {
+            delegate?.favoriteThis(index: indexPath)
+        }
+    }
+    
+    
+    func createObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(like(notification:)), name: .buttonRadio, object: nil)
+    }
+    
+    @objc func like(notification: Notification) {
+        guard let index = notification.userInfo?[NotificationKey.liked] as? Int else { return  }
+        guard let selfIndex = self.index else { return }
+        if selfIndex == index {
+//            self.isFavorited.toggle()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

@@ -11,20 +11,23 @@ import UIKit
 
 extension TripCell: TripDelegate {
     func favoriteThis(index: IndexPath) {
-        trips[index.row].isFavorited = !trips[index.row].isFavorited
-        collectionView.reloadItems(at: [index])
+        trips[index.item].isFavorited.toggle()
+        mainController?.trips[index.item].isFavorited.toggle()
+
     }
-    
-    func update(trip: Travel) {
-    }
-    
 }
 
-protocol MoveDelegate {
-    func move(indexpath: IndexPath)
-}
+
 
 class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    weak var mainController: MainViewController?
+    var trips: [Travel] = [] {
+        didSet {
+            print("in trip cell")
+            self.collectionView.reloadData()
+        }
+    }
     
     fileprivate let padding: CGFloat = 8
     var delegate: MoveDelegate?
@@ -59,6 +62,11 @@ class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionView
         
         collectionView.register(TripTopViewCell.self, forCellWithReuseIdentifier: TripTopViewCell.reuseID)
         self.addSubview(collectionView)
+        
+    }
+    
+    @objc func changeStatus(notification: Notification){
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -70,19 +78,24 @@ class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return trips.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TripTopViewCell.reuseID, for: indexPath) as! TripTopViewCell
-        let trip = trips[indexPath.row]
+        let trip = trips[indexPath.item]
+        cell.trip = trip
+        
+        print("did trans trips between cells")
+        
         cell.delegate = self
         cell.indexPath = indexPath
-        cell.isFavorited = trip.isFavorited
-        cell.updateCellBy(trip: trip)
+        cell.index = indexPath.row
+
         return cell
         
     }
+    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -97,14 +110,9 @@ class TripCell: UICollectionViewCell, UICollectionViewDelegate, UICollectionView
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        delegate?.move(indexpath: indexPath)
-        print("Now at: \(indexPath)")
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        return false
+        if let delegate = delegate {
+            delegate.move(indexpath: indexPath)
+        }
     }
     
 }
-
