@@ -51,7 +51,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         searchBar.resignFirstResponder()
     }
 
-    private let collectionView = BaseCollectionView(scrollDirection: .vertical)
+    let collectionView = BaseCollectionView(scrollDirection: .vertical)
 
     private let backgrounImageView: UIImageView = {
         let iv = UIImageView()
@@ -65,7 +65,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cellRegister()
         setupViews()
         searchBar.delegate = self
-//        createObserver()
+
     
     }
     func createObserver() {
@@ -95,10 +95,10 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         backgrounImageView.setAnchor(top: view.topAnchor, left: view.leftAnchor, leading: nil, bottom: view.bottomAnchor, right: view.rightAnchor, trailing: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0)
         
         
-        searchBar.placeholder = "Find your bloody trip..."
+        searchBar.placeholder = "Find your trip..."
         navigationItem.titleView = searchBar
         
-        let notifyBtn = UIBarButtonItem(title: "Bite Me", style: .plain, target: self, action: #selector(tap))
+        let notifyBtn = UIBarButtonItem(title: "Search", style: .plain, target: self, action: #selector(tap))
         navigationItem.rightBarButtonItem = notifyBtn
         
     }

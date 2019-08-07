@@ -13,7 +13,7 @@ extension TripCell: TripDelegate {
     func favoriteThis(index: IndexPath) {
         trips[index.item].isFavorited.toggle()
         mainController?.trips[index.item].isFavorited.toggle()
-
+//        mainController?.collectionView.reloadData()
     }
 }
 
