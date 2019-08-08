@@ -3,7 +3,7 @@
 An app to display touristic information. 
 ---
 ### Screenshots
-![image](/kkDayScreenshots.png)
+![image](/kkDayScreenShots.png)
 ### Features
 
 everything built programmatically. (no storyboards)
