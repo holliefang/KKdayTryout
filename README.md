@@ -5,7 +5,7 @@ An app to display touristic information.
 ### Features
 
 everything built programmatically. (no storyboards)
-An app to display touristic information. 
+
 
 
 
